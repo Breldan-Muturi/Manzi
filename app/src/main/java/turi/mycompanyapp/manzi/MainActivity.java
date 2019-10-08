@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements GetRawData.onDownloadComplete  {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDataAvailable  {
 
     private static final String TAG = "MainActivity";
 
@@ -22,10 +24,19 @@ public class MainActivity extends AppCompatActivity implements GetRawData.onDown
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        GetRawData getRawData = new GetRawData(this);
-        getRawData.execute("https://www.flickr.com/services/feeds/photos_public.gne?tags=android,nougat&tagmode=any&format=json&nojsoncallback=1");
+//        GetRawData getRawData = new GetRawData(this);
+//        getRawData.execute("https://www.flickr.com/services/feeds/photos_public.gne?tags=android,nougat&tagmode=any&format=json&nojsoncallback=1");
 
         Log.d(TAG, "onCreate: ends");
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume starts");
+        super.onResume();
+        GetJSONdata getJSONdata = new GetJSONdata(this,"https://www.flickr.com/services/feeds/photos_public.gne?","en-us",true);
+        getJSONdata.executeOnSameThread("android, nougat");
+        Log.d(TAG, "onResume ends");
     }
 
     @Override
@@ -52,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements GetRawData.onDown
     }
 
     @Override
-    public void onDownloadComplete(String data, DownloadStatus status){
+    public void onDataAvailable(List<Photo> data, DownloadStatus status){
 
         if(status == DownloadStatus.OK){
             Log.d(TAG, "onDownloadComplete: data is " + data);
