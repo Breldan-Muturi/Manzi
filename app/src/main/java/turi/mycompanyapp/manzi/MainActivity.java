@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GetRawData.onDownloadComplete  {
 
     private static final String TAG = "MainActivity";
 
@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        GetRawData getRawData = new GetRawData(this);
+        getRawData.execute("https://www.flickr.com/services/feeds/photos_public.gne?tags=android,nougat&tagmode=any&format=json&nojsoncallback=1");
 
         Log.d(TAG, "onCreate: ends");
     }
@@ -47,4 +50,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onOptionsItemSelected() returned: returned");
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onDownloadComplete(String data, DownloadStatus status){
+
+        if(status == DownloadStatus.OK){
+            Log.d(TAG, "onDownloadComplete: data is " + data);
+        } else {
+//            download or processing failed
+            Log.e(TAG, "onDownloadComplete: failed with status " + status);
+        }
+    }
 }
+
