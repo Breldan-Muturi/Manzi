@@ -28,9 +28,19 @@ class GetRawData extends AsyncTask<String, Void, String> {
        mCallBack = callback;
     }
 
+    void runInSameThread(String s){
+        Log.d(TAG, "runInSameThread starts");
+//        onPostExecute(doInBackground(s));
+        if(mCallBack != null){
+            String result = doInBackground(s);
+            mCallBack.onDownloadComplete(result,mDownloadStatus);
+        }
+        Log.d(TAG, "runInSameThread ends");
+    }
+
     @Override
     protected void onPostExecute(String s) {
-        Log.d(TAG, "onPostExecute: parameter = " + s);
+//        Log.d(TAG, "onPostExecute: parameter = " + s);
         if(mCallBack != null){
             mCallBack.onDownloadComplete(s, mDownloadStatus);
         }
@@ -49,7 +59,7 @@ class GetRawData extends AsyncTask<String, Void, String> {
 
             return null;
         }
-        
+
         try{
 
             mDownloadStatus = DownloadStatus.PROCESSING;
@@ -82,7 +92,7 @@ class GetRawData extends AsyncTask<String, Void, String> {
             mDownloadStatus = DownloadStatus.OK;
 
             return result.toString();
-            
+
         } catch (MalformedURLException e){
             Log.e(TAG, "doInBackground: Invalid URL"+ e.getMessage());
 

@@ -18,7 +18,9 @@ class GetJSONdata extends AsyncTask<String, Void, List<Photo>> implements GetRaw
     private String mBaseUrl;
     private String mLanguage;
     private boolean mMatchAll;
+
     private final OnDataAvailable mCallBack;
+    private boolean runningOnSameThread = false;
 
     interface OnDataAvailable {
         void onDataAvailable(List<Photo> data, DownloadStatus status);
@@ -34,11 +36,32 @@ class GetJSONdata extends AsyncTask<String, Void, List<Photo>> implements GetRaw
 
     void executeOnSameThread(String searchCriteria){
         Log.d(TAG, "executeOnSameThread starts");
+        runningOnSameThread = true;
         String destinationUri = createUri(searchCriteria, mLanguage, mMatchAll);
 
         GetRawData getRawData = new GetRawData(this);
         getRawData.execute(destinationUri);
         Log.d(TAG, "executeOnSameThread ends");
+
+    }
+
+    @Override
+    protected void onPostExecute(List<Photo> photos) {
+        Log.d(TAG, "onPostExecute starts");
+        if(mCallBack != null){
+            mCallBack.onDataAvailable(mPhotoList,DownloadStatus.OK);
+        }
+        Log.d(TAG, "onPostExecute ends");
+    }
+
+    @Override
+    protected List<Photo> doInBackground(String... params) {
+        Log.d(TAG, "doInBackground starts ");
+        String destinationUri = createUri(params[0],mLanguage, mMatchAll);
+        GetRawData getRawData = new GetRawData(this);
+        getRawData.runInSameThread(destinationUri);
+        Log.d(TAG, "doInBackground ends");
+        return mPhotoList;
     }
 
     private String createUri(String searchCriteria, String lang, boolean matchAll){
@@ -86,7 +109,7 @@ class GetJSONdata extends AsyncTask<String, Void, List<Photo>> implements GetRaw
             }
         }
 
-        if (mCallBack != null ){
+        if (runningOnSameThread && mCallBack != null ){
 //            inform the caller that processing is done or notify an error
             mCallBack.onDataAvailable(mPhotoList,status);
         }
