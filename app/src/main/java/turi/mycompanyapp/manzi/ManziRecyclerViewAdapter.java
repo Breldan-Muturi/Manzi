@@ -50,6 +50,7 @@ class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAda
 
     @Override
     public int getItemCount() {
+
         return ((mPhotoList != null) && (mPhotoList.size() != 0) ? mPhotoList.size() : 0);
     }
 
