@@ -26,12 +26,23 @@ class RecyclerClickListener extends RecyclerView.SimpleOnItemTouchListener {
         mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener(){
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
-                return super.onSingleTapUp(e);
+                Log.d(TAG, "onSingleTapUp: starts");
+                View childView = recyclerView.findChildViewUnder(e.getX(),e.getY());
+                if(childView != null && mListener != null){
+                    Log.d(TAG, "onSingleTapUp: call listener.onItemClicked");
+                    mListener.onItemClicked(childView,recyclerView.getChildAdapterPosition(childView));
+                }
+                return true;
             }
 
             @Override
             public void onLongPress(MotionEvent e) {
-                super.onLongPress(e);
+                Log.d(TAG, "onLongPress: starts");
+                View childView = recyclerView.findChildViewUnder(e.getX(),e.getY());
+                if(childView != null && mListener != null){
+                    Log.d(TAG, "onLongPress: calling listener.onItemLongClicked");
+                    mListener.onItemLongClicked(childView, recyclerView.getChildAdapterPosition(childView));
+                }
             }
         });
     }

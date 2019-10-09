@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDat
     protected void onResume() {
         Log.d(TAG, "onResume starts");
         super.onResume();
-        GetJSONdata getJSONdata = new GetJSONdata(this,"https://www.flickr.com/services/feeds/photos_public.gne?","en-us                                                        ",true);
+        GetJSONdata getJSONdata = new GetJSONdata(this,"https://www.flickr.com/services/feeds/photos_public.gne", "en-us", true);
 //        getJSONdata.executeOnSameThread("android, nougat");
         getJSONdata.execute("android, nougat");
         Log.d(TAG, "onResume ends");
