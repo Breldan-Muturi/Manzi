@@ -2,7 +2,9 @@ package turi.mycompanyapp.manzi;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +22,35 @@ class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAda
     public ManziRecyclerViewAdapter(List<Photo> photoList, Context context) {
         mPhotoList = photoList;
         mContext = context;
+    }
+
+    @NonNull
+    @Override
+    public ManziImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//         Called By the layout manager when it needs a new view
+        Log.d(TAG, "onCreateViewHolder: new View Requested");
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.browse,parent,false);
+        return new ManziImageViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ManziImageViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        Log.d(TAG, "getItemCount: called");
+        return ((mPhotoList != null) && (mPhotoList.size() != 0) ? mPhotoList.size() : 0);
+    }
+
+    void loadNewData(List<Photo> newPhotos){
+        mPhotoList = newPhotos;
+        notifyDataSetChanged();
+    }
+
+    public Photo getPhoto(int position){
+        return ((mPhotoList != null) && (mPhotoList.size() != 0) ? mPhotoList.get(position) : null);
     }
 
     static class ManziImageViewHolder extends RecyclerView.ViewHolder{
