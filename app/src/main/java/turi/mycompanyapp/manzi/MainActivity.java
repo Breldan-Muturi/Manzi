@@ -1,5 +1,6 @@
 package turi.mycompanyapp.manzi;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -17,7 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDataAvailable,
+public class MainActivity extends BaseActivity implements GetJSONdata.OnDataAvailable,
         RecyclerClickListener.OnRecyclerClickListener {
 
     private static final String TAG = "MainActivity";
@@ -28,8 +29,7 @@ public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDat
         Log.d(TAG, "onCreate: starts");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        activateToolbar(false);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDat
 
         mManziRecyclerViewAdapter = new ManziRecyclerViewAdapter(new ArrayList<Photo>(), this);
         recyclerView.setAdapter(mManziRecyclerViewAdapter);
-
-//        GetRawData getRawData = new GetRawData(this);
-//        getRawData.execute("https://www.flickr.com/services/feeds/photos_public.gne?tags=android,nougat&tagmode=any&format=json&nojsoncallback=1");
 
         Log.d(TAG, "onCreate: ends");
     }
@@ -99,7 +96,10 @@ public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDat
     @Override
     public void onItemLongClicked(View view, int position) {
         Log.d(TAG, "onItemClicked: starts");
-        Toast.makeText(this, "Long Tap at position " + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Long Tap at position " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, PhotoDetailActivity.class);
+        intent.putExtra(PHOTO_TRANSFER,mManziRecyclerViewAdapter.getPhoto(position));
+        startActivity(intent);
     }
 }
 
