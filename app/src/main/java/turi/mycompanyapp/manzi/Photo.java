@@ -2,6 +2,7 @@ package turi.mycompanyapp.manzi;
 
 class Photo {
 
+    private static final long serialVersionUID = 1L;
     private String mTitle;
     private String mAuthor;
     private String mAuthorId;
