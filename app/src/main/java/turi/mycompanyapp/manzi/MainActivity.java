@@ -5,16 +5,20 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDataAvailable  {
 
     private static final String TAG = "MainActivity";
+    private ManziRecyclerViewAdapter mManziRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,11 @@ public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDat
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mManziRecyclerViewAdapter = new ManziRecyclerViewAdapter(new ArrayList<Photo>(), this);
+        recyclerView.setAdapter(mManziRecyclerViewAdapter);
 
 //        GetRawData getRawData = new GetRawData(this);
 //        getRawData.execute("https://www.flickr.com/services/feeds/photos_public.gne?tags=android,nougat&tagmode=any&format=json&nojsoncallback=1");
@@ -65,13 +74,15 @@ public class MainActivity extends AppCompatActivity implements GetJSONdata.OnDat
 
     @Override
     public void onDataAvailable(List<Photo> data, DownloadStatus status){
-
+        Log.d(TAG, "onDataAvailable starts");
         if(status == DownloadStatus.OK){
+            mManziRecyclerViewAdapter.loadNewData(data);
             Log.d(TAG, "onDownloadComplete: data is " + data);
         } else {
 //            download or processing failed
             Log.e(TAG, "onDownloadComplete: failed with status " + status);
         }
+        Log.d(TAG, "onDataAvailable ends");
     }
 }
 

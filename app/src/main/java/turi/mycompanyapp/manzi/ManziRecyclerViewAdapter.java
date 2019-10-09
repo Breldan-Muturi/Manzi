@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAdapter.ManziImageViewHolder>{
@@ -35,7 +37,15 @@ class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAda
 
     @Override
     public void onBindViewHolder(@NonNull ManziImageViewHolder holder, int position) {
+//Called by the Layout Manager when it wants new data in an existing row
 
+        Photo photoItem = mPhotoList.get(position);
+        Log.d(TAG, "onBindViewHolder: "+ photoItem.getTitle()+" ---> "+position);
+        Picasso.with(mContext).load(photoItem.getImage())
+                .error(R.drawable.placeholder)
+                .placeholder(R.drawable.placeholder)
+                .into(holder.thumbNail);
+        holder.title.setText(photoItem.getTitle());
     }
 
     @Override
@@ -62,7 +72,7 @@ class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAda
             super(itemView);
             Log.d(TAG, "ManziImageViewHolder starts");
             this.thumbNail = (ImageView) itemView.findViewById(R.id.thumbNail);
-            this.title = (TextView) itemView.findViewById(R.id.photo_title);
+            this.title = (TextView) itemView.findViewById(R.id.title);
         }
     }
 }
