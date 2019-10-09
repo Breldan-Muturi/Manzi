@@ -1,6 +1,8 @@
 package turi.mycompanyapp.manzi;
 
-class Photo {
+import java.io.Serializable;
+
+class Photo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String mTitle;

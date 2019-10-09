@@ -98,6 +98,8 @@ public class MainActivity extends BaseActivity implements GetJSONdata.OnDataAvai
         Log.d(TAG, "onItemClicked: starts");
 //        Toast.makeText(this, "Long Tap at position " + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, PhotoDetailActivity.class);
+        intent.putExtra(PHOTO_TRANSFER,mManziRecyclerViewAdapter.getPhoto(position));
+        startActivity(intent);
     }
 }
 
