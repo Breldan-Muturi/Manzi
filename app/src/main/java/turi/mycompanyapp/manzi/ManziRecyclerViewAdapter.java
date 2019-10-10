@@ -21,7 +21,7 @@ class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAda
     private List<Photo> mPhotoList;
     private Context mContext;
 
-    public ManziRecyclerViewAdapter(List<Photo> photoList, Context context) {
+    public ManziRecyclerViewAdapter( Context context, List<Photo> photoList) {
         mPhotoList = photoList;
         mContext = context;
     }
@@ -38,20 +38,24 @@ class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAda
     @Override
     public void onBindViewHolder(@NonNull ManziImageViewHolder holder, int position) {
 //Called by the Layout Manager when it wants new data in an existing row
-
-        Photo photoItem = mPhotoList.get(position);
-        Log.d(TAG, "onBindViewHolder: "+ photoItem.getTitle()+" ---> "+position);
-        Picasso.with(mContext).load(photoItem.getImage())
-                .error(R.drawable.placeholder)
-                .placeholder(R.drawable.placeholder)
-                .into(holder.thumbNail);
-        holder.title.setText(photoItem.getTitle());
+        if(mPhotoList == null || mPhotoList.size() == 0){
+            holder.thumbNail.setImageResource(R.drawable.pplaceholder);
+            holder.title.setText(R.string.empty_photo);
+        } else {
+            Photo photoItem = mPhotoList.get(position);
+            Log.d(TAG, "onBindViewHolder: " + photoItem.getTitle() + " ---> " + position);
+            Picasso.with(mContext).load(photoItem.getImage())
+                    .error(R.drawable.placeholder)
+                    .placeholder(R.drawable.placeholder)
+                    .into(holder.thumbNail);
+            holder.title.setText(photoItem.getTitle());
+        }
     }
 
     @Override
     public int getItemCount() {
 
-        return ((mPhotoList != null) && (mPhotoList.size() != 0) ? mPhotoList.size() : 0);
+        return ((mPhotoList != null) && (mPhotoList.size() != 0) ? mPhotoList.size() : 1);
     }
 
     void loadNewData(List<Photo> newPhotos){
