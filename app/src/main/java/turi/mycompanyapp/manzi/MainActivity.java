@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +29,7 @@ public class MainActivity extends BaseActivity implements GetJSONdata.OnDataAvai
         setContentView(R.layout.activity_main);
         activateToolbar(false);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addOnItemTouchListener(new RecyclerClickListener(this, recyclerView, this));
 
