@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // if user logged in, go to sign-in screen
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(this, SignedInActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
     }
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("MyTag", task.getException().toString());
 
                         } else {
-                            Intent intent = new Intent(LoginActivity.this, SignedInActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         }

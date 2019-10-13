@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,10 +78,16 @@ public class MainActivity extends BaseActivity implements GetJSONData.OnDataAvai
         if (id == R.id.action_settings) {
             return true;
         }
+
         if(id == R.id.action_search) {
             Intent intent = new Intent(this, SearchActivity.class);
             startActivity(intent);
             return true;
+        }
+
+        if(id == R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this,RegisterActivity.class));
         }
 
         Log.d(TAG, "onOptionsItemSelected() returned: returned");

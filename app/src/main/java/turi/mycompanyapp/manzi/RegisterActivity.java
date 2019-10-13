@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // if user logged in, go to sign-in screen
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(this, SignedInActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
     }
@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.e("MyTag", task.getException().toString());
                         } else {
 
-                            startActivity(new Intent(RegisterActivity.this, SignedInActivity.class));
+                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                             finish();
                         }
                     }

@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/primary_light"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin"
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorAccent"
+            android:background="@color/icons"
             android:onClick="onRegisterClicked"
             android:text="@string/action_sign_in_short"
             android:textColor="@android:color/black"
@@ -74,7 +74,7 @@
             android:onClick="onLoginClicked"
             android:text="@string/btn_link_to_login"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/primary"
             android:textSize="15sp" />
     </LinearLayout>
 

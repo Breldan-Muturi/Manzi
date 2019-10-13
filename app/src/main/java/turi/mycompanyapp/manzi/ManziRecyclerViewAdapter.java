@@ -44,7 +44,7 @@ class ManziRecyclerViewAdapter extends RecyclerView.Adapter<ManziRecyclerViewAda
         } else {
             Photo photoItem = mPhotoList.get(position);
             Log.d(TAG, "onBindViewHolder: " + photoItem.getTitle() + " ---> " + position);
-            Picasso.with(mContext).load(photoItem.getImage())
+            Picasso.get().load(photoItem.getImage())
                     .error(R.drawable.placeholder)
                     .placeholder(R.drawable.placeholder)
                     .into(holder.thumbNail);
