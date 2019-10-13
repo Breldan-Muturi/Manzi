@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements GetJSONData.OnDataAvai
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String queryResult = sharedPreferences.getString(MANZI_QUERY, "");
 
-        if(queryResult.length() > 0) {
+        if (queryResult.length() > 0) {
             GetJSONData getFlickrJsonData = new GetJSONData(this, "https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true);
             getFlickrJsonData.execute(queryResult);
         }
@@ -79,15 +79,15 @@ public class MainActivity extends BaseActivity implements GetJSONData.OnDataAvai
             return true;
         }
 
-        if(id == R.id.action_search) {
+        if (id == R.id.action_search) {
             Intent intent = new Intent(this, SearchActivity.class);
             startActivity(intent);
             return true;
         }
 
-        if(id == R.id.logout){
+        if (id == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this,RegisterActivity.class));
+            startActivity(new Intent(this, RegisterActivity.class));
         }
 
         Log.d(TAG, "onOptionsItemSelected() returned: returned");
@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity implements GetJSONData.OnDataAvai
     @Override
     public void onDataAvailable(List<Photo> data, DownloadStatus status) {
         Log.d(TAG, "onDataAvailable: starts");
-        if(status == DownloadStatus.OK) {
+        if (status == DownloadStatus.OK) {
             mManziRecyclerViewAdapter.loadNewData(data);
         } else {
             // download or processing failed
