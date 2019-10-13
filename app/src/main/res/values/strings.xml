@@ -9,4 +9,14 @@
     <string name="activity_search">Search</string>
     <string name="searchable_hint">Enter Photo Tags</string>
     <string name="empty_photo">No photos match your search.   Use the search icon to search for photos.</string>
+    <string name="registration_successful">You have logged in successfully</string>
+    <string name="sign_out">SIGN OUT</string>
+    <string name="password">password</string>
+    <string name="email">Enter a valid email</string>
+    <string name="username">Add your username</string>
+    <string name="btn_login">Login</string>
+    <string name="action_sign_in_short">sign up</string>
+    <string name="btn_link_to_login">Already signed up? Log in</string>
+    <string name="minimum_password">Password too short</string>
+    <string name="auth_failed">Authentication Failed</string>
 </resources>
