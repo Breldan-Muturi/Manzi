@@ -33,7 +33,7 @@ public class PhotoDetailActivity extends BaseActivity {
             photoAuthor.setText(photo.getAuthor());
 
             ImageView photoImage = (ImageView) findViewById(R.id.photo_image);
-            Picasso.with(this).load(photo.getLink())
+            Picasso.get().load(photo.getLink())
                     .error(R.drawable.placeholder)
                     .placeholder(R.drawable.placeholder)
                     .into(photoImage);
